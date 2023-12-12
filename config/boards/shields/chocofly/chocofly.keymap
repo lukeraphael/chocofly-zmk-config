@@ -6,6 +6,24 @@
 &mt { quick_tap_ms = <200>; };
 
 / {
+    combos {
+        compatible = "zmk,combos";
+        combo_skip_left {
+            timeout-ms = <50>;
+            key-positions = <1 8>;
+            layers = <1>;
+            bindings = <&kp LALT &kp LEFT>;
+        };
+        combo_skip_right {
+            timeout-ms = <50>;
+            key-positions = <1 9>;
+            layers = <1>;
+            bindings = <&kp LALT &kp RIGHT>;
+        };
+    };
+};
+
+/ {
     keymap {
         compatible = "zmk,keymap";
 
@@ -18,11 +36,11 @@
 // ----------------------------------------|  GUI        |  CTRL          |   FN     |     ESCAPE  |  ENTER     |  SPACE |  R SHIFT      |   GUI    |-------------------------------------
 //                                         ----------------------------------------------------------------------------------------------------------
            bindings = <
-    &kp ESC       &kp 1    &kp 2    &kp 3    &kp 4         &kp 5                                                           &kp 6           &kp 7      &kp 8     &kp 9   &kp 0    &kp GRAVE
-    &kp TAB       &kp Q    &kp W    &kp E    &kp R         &kp T                                                           &kp Y           &kp U      &kp I     &kp O   &kp P    &kp LBKT
+    &kp ESC       &kp N1   &kp N2   &kp N3   &kp N4        &kp N5                                                          &kp N6          &kp N7     &kp N8    &kp N9  &kp N0   &kp GRAVE
+    &kp TAB       &kp Q    &kp W    &kp E    &kp R         &kp T                                                           &kp Y           &kp U      &kp I     &kp O   &kp P    &kp BSLH
     &kp BSPC      &kp A    &kp S    &kp D    &kp F         &kp G           &kp K_MUTE                                      &kp H           &kp J      &kp K     &kp L   &kp SEMI &kp SQT
-    &kp LSHFT     &kp Z    &kp X    &kp C    &kp V         &kp B           &kp GRAVE   &kp LSHFT    &kp PSCRN    &kp RBKT  &kp N           &kp M      &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                                             &kp LGUI      &mt LCTRL EQUAL &mo 1       &mt LALT ESC &kp RET      &kp SPACE &mt RSHFT MINUS &lt 2 LGUI
+    &kp LSHFT     &kp Z    &kp X    &kp C    &kp V         &kp B           &mo 2       &mo 3        &kp PSCRN    &kp RBKT  &kp N           &kp M      &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+                                             &kp LCTRL     &mt LGUI EQUAL  &mo 1       &mt LALT ESC &kp RET      &kp SPACE &mt RSHFT MINUS &lt 2 LGUI
             >;
             sensor-bindings = <&inc_dec_kp K_VOL_UP K_VOL_DN>;
         };
@@ -30,16 +48,16 @@
         lower_layer {
 // -------------------------------------------------------------                                       -------------------------------------------------------------
 // |         |         |         |         |         |         |                                       |         |         |         |         |         |         |
-// |         |    0    |    1    |    2    |    3    |  BSPC   |----------                             |  DEL    |   HOME  |   UP    |  END    |         |         |
-// |         |    0    |    4    |    5    |    6    |  DEL    |         |-----------------------------|  BSPC   |   LEFT  |   DOWN  |  RIGHT  |         |         |
-// |    -    |    0    |    7    |    8    |    9    |         |         |         |         |         |         |   PG UP | APP MENU| PG DOWN |         |    -    |
+// |         |    0    |    1    |    [    |    ]    |  HOME   |----------                             |  END    |   SKIPL |  SKIPR  |    -    |    _    |         |
+// |         |    0    |    4    |    (    |    )    |  DEL    |         |-----------------------------|  LEFT   |   DOWN  |   UP    |  RIGHT  |    =    |         |
+// |    -    |    0    |    7    |    {    |    }    |         |         |         |         |         |         |   PG UP | APP MENU| PG DOWN |         |    -    |
 // ----------------------------------------|    -    |  -      |    -    |  ENTER  | ESCAPE  |    -    |    -    |    -    |----------------------------------------
 //                                         ---------------------------------------------------------------------------------
             bindings = <
-    &none         &none    &none    &none     &none     &none                                          &none       &none      &none      &none      &none   &none
-    &none         &kp N0   &kp N1   &kp N2    &kp N3    &kp BSPC                                       &kp DEL     &kp HOME   &kp UP     &kp END    &none   &none
-    &none         &kp N0   &kp N4   &kp N5    &kp N6    &kp DEL   &none                                &kp BSPC    &kp LEFT   &kp DOWN   &kp RIGHT  &none   &none
-    &trans        &kp N0   &kp N7   &kp N8    &kp N9    &none     &none   &none    &none     &none     &none       &kp PG_UP  &kp K_APP  &kp PG_DN  &none   &trans
+    &none         &none    &none    &none     &none     &none                                          &none       &none        &none         &none      &none         &none
+    &none         &kp N0   &kp N1   &kp LBKT  &kp RBKT  &kp HOME                                       &kp END     &kp LA(LEFT) &kp LA(RIGHT) &kp MINUS  &kp LS(MINUS) &none
+    &none         &kp N0   &kp N4   &kp LPAR  &kp RPAR  &kp DEL   &none                                &kp LEFT    &kp DOWN     &kp UP        &kp RIGHT  &kp EQUAL     &none
+    &trans        &kp N0   &kp N7   &kp LBRC  &kp RBRC  &none     &none   &none    &none     &none     &none       &kp PG_UP    &kp K_APP     &kp PG_DN  &none         &trans
                                               &trans    &trans    &trans  &kp RET  &kp ESC   &trans    &trans      &trans
             >;
             sensor-bindings = <&inc_dec_kp PG_UP PG_DN>;
